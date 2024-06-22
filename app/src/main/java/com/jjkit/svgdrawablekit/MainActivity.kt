@@ -38,12 +38,22 @@ import com.jjkit.svgdrawablekit.ui.theme.SVGDrawableKitTheme
 import com.jjkit.svgkit.CanvasDrawer
 import com.jjkit.svgkit.PathDrawable
 import com.jjkit.svgkit.SVGCircle
+import com.jjkit.svgkit.SVGDrawable
+import com.jjkit.svgkit.utils.SVGPathParser
 import com.jjkit.svgkit.utils.SVGUtil
+import com.jjkit.svgkit.utils.SVGViewBox
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        SVGPathParser.setDensity(resources.displayMetrics.density)
+        SVGViewBox.setDensity(resources.displayMetrics.density)
+        SVGDrawable.setDensity(resources.displayMetrics.density)
+        PathDrawable.setDensity(resources.displayMetrics.density)
+
         enableEdgeToEdge()
+
         setContent {
             SVGDrawableKitTheme {
 
