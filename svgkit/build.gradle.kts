@@ -34,6 +34,13 @@ android {
         jvmTarget = "1.8"
     }
 
+//    publishing {
+//        singleVariant("release") {
+//            // if you don't want sources/javadoc, remove these lines
+//            withSourcesJar()
+//            withJavadocJar()
+//        }
+//    }
 
 }
 
@@ -49,3 +56,16 @@ dependencies {
 
 }
 
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.jjkit"
+            artifactId = "svgkit"
+            version = "1.2"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
+}
