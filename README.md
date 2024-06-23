@@ -19,7 +19,7 @@ dependencyResolutionManagement {
 2.- Add the dependency
 ```
 dependencies {
-	        implementation 'com.github.Only-IceSoul:jjkit-svgkit:1.1'
+	        implementation 'com.github.Only-IceSoul:jjkit-svgkit:1.2'
 	}
 ```
 
