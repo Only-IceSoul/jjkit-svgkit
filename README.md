@@ -16,12 +16,39 @@ dependencyResolutionManagement {
 		}
 	}
 ```
-2.- Add the dependency
+
+2.- 
+
+gradle-wrapper.properties  8.6 to 8.7 
+
+```
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.7-bin.zip
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+
+```
+3.-libs.versions.toml
+
+```
+svgkit = "1.2"
+
+jjkit-svgkit = { module = "com.github.Only-IceSoul:jjkit-svgkit", version.ref = "svgkit" }
+
+```
+4.-build gradle APP
+
 ```
 dependencies {
-	        implementation 'com.github.Only-IceSoul:jjkit-svgkit:1.2'
-	}
+
+
+    ///
+    implementation(libs.jjkit.svgkit)
+}
+
 ```
+
 
 ## USAGE
 
@@ -37,6 +64,8 @@ dependencies {
             SVGViewBox.setDensity(resources.displayMetrics.density)
             SVGDrawable.setDensity(resources.displayMetrics.density)
             PathDrawable.setDensity(resources.displayMetrics.density)
+
+        }
     
 ```
 
