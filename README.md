@@ -6,13 +6,13 @@ Draw svg path or custom paths with SVGKit
 
 ## INSTALLATION
 
-1.-Add it in your root build.gradle at the end of repositories:
+1.-Add it in your settings.gradle.kts at the end of repositories:
 ```
 dependencyResolutionManagement {
 		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 		repositories {
-			mavenCentral()
-			maven { url 'https://jitpack.io' }
+			mavenCentral() //this
+			maven { url 'https://jitpack.io' }  //this
 		}
 	}
 ```
