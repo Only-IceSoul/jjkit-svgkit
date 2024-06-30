@@ -32,7 +32,7 @@ zipStorePath=wrapper/dists
 3.-libs.versions.toml
 
 ```
-svgkit = "1.2"
+svgkit = "1.3"
 
 jjkit-svgkit = { module = "com.github.Only-IceSoul:jjkit-svgkit", version.ref = "svgkit" }
 
