@@ -54,6 +54,7 @@ class SVGLine : SVGDrawableWithMask() {
                 path.moveTo(toDensity(x1),toDensity(y1))
                 path.lineTo(toDensity(x2),toDensity(y2))
             }
+            notifyPathChanged()
         }
     }
 

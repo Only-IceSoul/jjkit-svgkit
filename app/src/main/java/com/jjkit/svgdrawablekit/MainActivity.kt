@@ -39,6 +39,9 @@ import com.jjkit.svgkit.CanvasDrawer
 import com.jjkit.svgkit.PathDrawable
 import com.jjkit.svgkit.SVGCircle
 import com.jjkit.svgkit.SVGDrawable
+import com.jjkit.svgkit.SVGLinearGradient
+import com.jjkit.svgkit.SVGPath
+import com.jjkit.svgkit.SVGRadialGradient
 import com.jjkit.svgkit.utils.SVGPathParser
 import com.jjkit.svgkit.utils.SVGUtil
 import com.jjkit.svgkit.utils.SVGViewBox
@@ -128,14 +131,35 @@ fun LoadingCircle(){
             .setStrokeEnd(0.5f)
             .setFillColor(Color.Transparent.toArgb())
     }
+    val svgLinearGradient = remember {
+        SVGLinearGradient()
+            .setX(0f)
+            .setY(0f)
+            .setW(50f)
+            .setH(50f)
+            .setViewBox(0f,0f,50f,50f)
+            .setStrokeColor(m.primary.toArgb())
+            .setStrokeWidth(5f)
+            .setStrokeEnd(0.5f)
+    }
+    val svgPath = remember {
+        SVGPath()
+            .setPath("M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z")
+            .setViewBox(0f,0f,24f,24f)
+            .setStrokeColor(m.primary.toArgb())
+            .setStrokeWidth(0.5f)
+            .setStrokeEnd(0.5f)
+            .setFillColor(Color.Transparent.toArgb())
 
-
+    }
     Canvas(
         modifier = Modifier
             .graphicsLayer {
                 rotationZ = animValue.value
             }
-            .size(60.dp) // Note size of 100 dp here
+            .size(150.dp)
+            .background(Color.Blue)
+
     ) {
 
         drawIntoCanvas {
@@ -172,24 +196,27 @@ fun LoadingCircle(){
 //            circle.draw(it.nativeCanvas)
 
 
-            //SVG DRAWABLE
+//            SVG DRAWABLE
 
             //ANIMATION
-            svgCircle.setStrokeStart(  SVGUtil.clamp( 1f - (-animValue2.value),0f,1f,1f,0f))
-            svgCircle.setStrokeEnd( SVGUtil.clamp( animValue2.value,0f,1f,1f,1f)  )
+            svgPath.setStrokeStart(  SVGUtil.clamp( 1f - (-animValue2.value),0f,1f,1f,0f))
+            svgPath.setStrokeEnd( SVGUtil.clamp( animValue2.value,0f,1f,1f,1f)  )
 
             //SETUP PAINT PATH STROKE
-            svgCircle.setup(size.width,size.height)
+            svgPath.setup(size.width,size.height)
 
             //DRAW
 
             //DRAW A BACKGROUND WITH BASE PATH
-            svgCircle.getStrokePaint().color = colors[1]
-            CanvasDrawer.drawPath(it.nativeCanvas,svgCircle.getPath(),svgCircle.getStrokePaint())
+            svgPath.getStrokePaint().color = colors[1]
+            CanvasDrawer.drawPath(it.nativeCanvas,svgPath.getPath(),svgPath.getStrokePaint())
 
             //RESTORE COLOR AND DRAW THE STROKE ANIMATION
-            svgCircle.getStrokePaint().color = svgCircle.getStrokeColor()
-            svgCircle.draw(it.nativeCanvas)
+            svgPath.getStrokePaint().color = svgCircle.getStrokeColor()
+            svgPath.draw(it.nativeCanvas)
+
+//            svgLinearGradient.setup(size.width,size.height)
+//            svgLinearGradient.draw(it.nativeCanvas)
 
         }
     }

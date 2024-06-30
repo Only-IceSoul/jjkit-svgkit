@@ -84,7 +84,7 @@ class SVGRect : SVGDrawableWithMask() {
     }
     
     override fun setupPath(path: Path) {
-        if(w > 0f && h > 0f){
+        if(mStatus){
             path.reset()
             if(w > 0f && h > 0f ) {
                 mRect.set(toDensity(x),toDensity(y),toDensity(x + w),toDensity(y + h))
@@ -98,6 +98,12 @@ class SVGRect : SVGDrawableWithMask() {
                 mRadius[7] = toDensity(rbl)
                 path.addRoundRect(mRect, mRadius, Path.Direction.CW)
             }
+            notifyPathChanged()
         }
+    }
+
+    override fun cleanStatus() {
+        mStatus = false
+        super.cleanStatus()
     }
 }

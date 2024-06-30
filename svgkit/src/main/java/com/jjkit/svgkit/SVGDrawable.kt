@@ -43,11 +43,11 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
     protected var mIsStrokeEnabled:Boolean = true
 
 
-    private var mPainterKit = painterKit
+    protected var mPainterKit = painterKit
     private val mProps = CommonProps()
     private val mTransform = TransformProps()
 
-    private var mCache: SVGDrawableCache = SVGDrawableCache()
+    protected var mCache: SVGDrawableCache = SVGDrawableCache()
     private var mmBoundsChangeStatus:Boolean = true
     private val mViewBoxCache = SVGViewBox()
     private val mViewBoxDensityCache = SVGViewBox()
@@ -58,7 +58,7 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         return v * mDensity
     }
 
-    fun setFillColor(color: Int) : SVGDrawable {
+    open fun setFillColor(color: Int) : SVGDrawable {
         mProps.fillColor = color
         mProps.fillColorStatus = true
         return this
@@ -219,7 +219,7 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         }
     }
 
-    private fun validateSize():Boolean{
+    protected fun validateSize():Boolean{
        return mCache.width > 0f && mCache.height > 0f
     }
 
@@ -245,12 +245,12 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
 
             transform()
 
-            mPainterKit.paint.colorFilter = mColorFilter
-            mPainterKit.paintStroke.colorFilter = mColorFilter
+
+
         }
     }
 
-    private fun reset(){
+    protected open fun reset(){
         mPainterKit.paint.reset()
         mPainterKit.paintStroke.reset()
         mPainterKit.paintStroke.clearShadowLayer()
@@ -275,7 +275,7 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
 
 
 
-    private fun props() {
+    protected open fun props() {
         mCache.path.fillType = getPathFillRule()
 
         if (fill()) {
@@ -284,7 +284,6 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         }
         if (stroke()) {
             setupPaintStroke()
-            setupPainStrokeWidth()  //cached
             setupPathStroke() //cached
             if (!fill()) setupShadow(true)  //cached
         }
@@ -314,15 +313,16 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
 
 
 
-    private fun setupPaintFill() {
+    protected open fun setupPaintFill() {
 //        mPainterKit.paint.reset()
         mPainterKit.paint.isAntiAlias = true
         mPainterKit.paint.style = Paint.Style.FILL
         mPainterKit.paint.setColor(mProps.fillColor)
         mPainterKit.paint.setAlpha((getValidatedFillOpacity() * 255f).toInt())
+        mPainterKit.paint.colorFilter = mColorFilter
     }
 
-    private fun setupPaintStroke() {
+    protected open fun setupPaintStroke() {
 //        mPainterKit.paintStroke.reset()
         mPainterKit.paintStroke.style = Paint.Style.STROKE
         mPainterKit.paintStroke.isAntiAlias = true
@@ -331,6 +331,8 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         mPainterKit.paintStroke.strokeCap = getPaintStrokeCap()
         mPainterKit.paintStroke.strokeMiter = mProps.strokeMiter
         mPainterKit.paintStroke.strokeJoin = getPaintStrokeJoin()
+        mPainterKit.paintStroke.colorFilter = mColorFilter
+        setupPainStrokeWidth() //cached
     }
 
 
@@ -365,7 +367,7 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         }
     }
 
-    private fun setupShadow(stroke: Boolean) {
+    protected open fun setupShadow(stroke: Boolean) {
 
 //        mPainterKit.paintStroke.clearShadowLayer()
 //        mPainterKit.paint.clearShadowLayer()
@@ -408,7 +410,7 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
     }
 
 
-    private fun transform() {
+    protected open fun transform() {
 
 
         if (mTransform.rotationIsPercent ) {
@@ -489,11 +491,11 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
     }
 
 
-    private fun stroke(): Boolean {
+    protected fun stroke(): Boolean {
         return mIsStrokeEnabled && mProps.strokeColor != Color.TRANSPARENT
     }
 
-    private fun fill(): Boolean {
+    protected fun fill(): Boolean {
         return mIsFillEnabled && mProps.fillColor != Color.TRANSPARENT
     }
 
@@ -536,7 +538,7 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         return  mViewBoxCache.width >= 0f && mViewBoxCache.height >= 0f
     }
 
-    private fun viewBoxTransform() {
+    protected fun viewBoxTransform() {
         if(didViewBoxChange() || didBoundsChange() ){
             notifyViewBoxChange() //if come from bounds
 
@@ -626,7 +628,7 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
 
 
     //not working
-    @Deprecated("Not Working")
+    @Deprecated("Not Working", ReplaceWith("setColorFilterToPaints"))
     override fun setColorFilter(colorFilter: ColorFilter?) {}
 
     @Deprecated("get nothing" ,
