@@ -16,7 +16,6 @@ class SVGViewBox{
     var changeStatus: Boolean = true
 
 
-    //FALTA ALIGN
     enum class Align {
         none,xMinYMin,xMidYMin,xMaxYMin,xMinYMid,xMidYMid,xMaxYMid,xMinYMax,xMidYMax,xMaxYMax
     }

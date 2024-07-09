@@ -21,9 +21,9 @@ import com.jjkit.svgkit.utils.SVGViewBox
 import com.jjkit.svgkit.utils.TransformProps
 
 //invalidateSelf not working in compose
-// just Modifier.graphicsLayer{} is not calling draw with a state, parameter state.value draw is called
+// just Modifier.graphicsLayer{} is not calling draw with a state
 //every canvas should be individual in a new composable function or a drawable in a new canvas for static draw
-//U can use CanvasDrawer for static or more options in the same canvas.
+//Shared Painter Kit , less object for multiple draw
 abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  {
 
     companion object{
@@ -613,6 +613,13 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
     }
     fun getStrokeColor():Int{
         return mProps.strokeColor
+    }
+
+    fun getWidth():Float{
+        return mCache.width
+    }
+    fun getHeight():Float{
+        return mCache.height
     }
 
     override fun setAlpha(alpha: Int) {

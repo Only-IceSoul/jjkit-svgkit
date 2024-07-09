@@ -14,6 +14,10 @@ abstract class SVGDrawableWithMask: SVGDrawable() {
         return this
     }
 
+//      Add to component compose:
+//    .graphicsLayer {
+//        compositingStrategy = CompositingStrategy.Offscreen
+//    }
     override fun onDraw(canvas: Canvas, painterKit: PainterKit, width: Float, height: Float) {
         if(mIsMask){
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {

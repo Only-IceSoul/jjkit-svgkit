@@ -12,7 +12,7 @@ dependencyResolutionManagement {
 		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 		repositories {
 			mavenCentral() //this
-			maven { url 'https://jitpack.io' }  //this
+			maven { url 'https://jitpack.io' } or maven("https://jitpack.io")  //this
 		}
 	}
 ```
@@ -32,7 +32,7 @@ zipStorePath=wrapper/dists
 3.-libs.versions.toml
 
 ```
-svgkit = "1.3"
+svgkit = "1.4"
 
 jjkit-svgkit = { module = "com.github.Only-IceSoul:jjkit-svgkit", version.ref = "svgkit" }
 

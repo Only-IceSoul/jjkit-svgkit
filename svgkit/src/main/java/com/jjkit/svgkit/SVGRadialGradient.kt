@@ -105,8 +105,10 @@ class SVGRadialGradient : SVGDrawableWithMask() {
     override fun setupPath(path: Path) {
         if(mStatus){
             path.reset()
-            mRect.set(toDensity(x),toDensity(y),toDensity(x+w),toDensity(y+h))
-            path.addRect(mRect,Path.Direction.CW)
+            if(w > 0f && h > 0f ) {
+                mRect.set(toDensity(x), toDensity(y), toDensity(x + w), toDensity(y + h))
+                path.addRect(mRect, Path.Direction.CW)
+            }
             notifyPathChanged()
         }
     }
