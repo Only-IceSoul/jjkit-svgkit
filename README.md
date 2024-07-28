@@ -17,7 +17,7 @@ dependencyResolutionManagement {
 	}
 ```
 
-2.- 
+2.-(Optional) 
 
 gradle-wrapper.properties  8.6 to 8.7 
 
@@ -32,7 +32,7 @@ zipStorePath=wrapper/dists
 3.-libs.versions.toml
 
 ```
-svgkit = "1.4"
+svgkit = "1.5"
 
 jjkit-svgkit = { module = "com.github.Only-IceSoul:jjkit-svgkit", version.ref = "svgkit" }
 
