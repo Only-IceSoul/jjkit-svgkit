@@ -61,7 +61,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.jjkit"
             artifactId = "svgkit"
-            version = "1.5"
+            version = "1.6"
 
             afterEvaluate {
                 from(components["release"])

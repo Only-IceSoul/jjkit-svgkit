@@ -4,7 +4,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Paint
-import android.graphics.Path
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.os.Build
@@ -28,18 +27,18 @@ object CanvasDrawer {
         helperOne = false
     }
 
-    fun drawPath(canvas: Canvas, path: Path, paint: Paint,matrix: Matrix = Matrix()){
+
+    inline fun drawWithMatrix(canvas: Canvas, matrix:Matrix, draw:()->Unit){
         val checkpoint = canvas.save()
         canvas.concat(matrix)
         try {
-            canvas.drawPath(path, paint)
+            draw()
         } finally {
             canvas.restoreToCount(checkpoint)
         }
     }
 
-
-    fun drawMask(canvas: Canvas,width:Float,height:Float,drawContent:()->Unit){
+    inline fun drawMask(canvas: Canvas,width:Float,height:Float,draw:()->Unit){
         paint.reset()
         paint.clearShadowLayer()
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
@@ -48,13 +47,13 @@ object CanvasDrawer {
             canvas.drawColor(Color.BLACK)
             paint.setXfermode(dstOut)
             canvas.saveLayer(0f, 0f, width, height, paint)
-            drawContent()
+            draw()
             canvas.restore()
             canvas.restore()
         } else {
             paint.setXfermode(dstIn)
             canvas.saveLayer(0f, 0f, width, height, paint)
-            drawContent()
+            draw()
             canvas.restore()
         }
         paint.setXfermode(null)

@@ -44,8 +44,8 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
 
 
     protected var mPainterKit = painterKit
-    private val mProps = CommonProps()
-    private val mTransform = TransformProps()
+    protected val mProps = CommonProps()
+    protected val mTransform = TransformProps()
 
     protected var mCache: SVGDrawableCache = SVGDrawableCache()
     private var mmBoundsChangeStatus:Boolean = true
@@ -63,58 +63,58 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         mProps.fillColorStatus = true
         return this
     }
-    fun setFillOpacity(opacity: Float) : SVGDrawable {
+    open fun setFillOpacity(opacity: Float) : SVGDrawable {
         mProps.fillOpacity = opacity
         mProps.fillOpacityStatus = true
         return this
     }
 
-    fun setFillRule(fillRule: DrawableTypes.FillRule) : SVGDrawable {
+    open fun setFillRule(fillRule: DrawableTypes.FillRule) : SVGDrawable {
         mProps.fillRule = fillRule
         mProps.fillRuleStatus = true
         return this
     }
 
-    fun setStrokeColor(color: Int) : SVGDrawable {
+    open fun setStrokeColor(color: Int) : SVGDrawable {
         mProps.strokeColor = color
         mProps.strokeColorStatus = true
         return this
     }
-    fun setStrokeOpacity(opacity: Float) : SVGDrawable {
+    open fun setStrokeOpacity(opacity: Float) : SVGDrawable {
         mProps.strokeOpacity = opacity
         mProps.strokeOpacityStatus = true
         return this
     }
-    fun setStrokeWidth(w: Float) : SVGDrawable {
+    open fun setStrokeWidth(w: Float) : SVGDrawable {
         if(mProps.strokeWidth != w){
             mProps.strokeWidth = w
             mProps.strokeWidthStatus = true
         }
         return this
     }
-    fun setStrokeCap(cap: DrawableTypes.LineCap) : SVGDrawable {
+    open fun setStrokeCap(cap: DrawableTypes.LineCap) : SVGDrawable {
         mProps.strokeCap = cap
         mProps.strokeCapStatus = true
         return this
     }
-    fun setStrokeJoin(join: DrawableTypes.LineJoin) : SVGDrawable {
+    open fun setStrokeJoin(join: DrawableTypes.LineJoin) : SVGDrawable {
         mProps.strokeJoin = join
         mProps.strokeJoinStatus = true
         return this
     }
-    fun setStrokeMiter(value: Float) : SVGDrawable {
+    open fun setStrokeMiter(value: Float) : SVGDrawable {
         mProps.strokeMiter = value
         mProps.strokeMiterStatus = true
         return this
     }
-    fun setStrokeStart(v: Float) : SVGDrawable {
+    open fun setStrokeStart(v: Float) : SVGDrawable {
         if(mProps.strokeStart != v){
             mProps.strokeStart = v
             mProps.strokeStartEndChangeStatus = true
         }
         return this
     }
-    fun setStrokeEnd(v: Float) : SVGDrawable {
+    open fun setStrokeEnd(v: Float) : SVGDrawable {
         if(mProps.strokeEnd != v) {
             mProps.strokeEnd = v
             mProps.strokeStartEndChangeStatus = true
@@ -122,19 +122,19 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         return this
     }
 
-    fun setShadowColor(c: Int) : SVGDrawable {
+    open fun setShadowColor(c: Int) : SVGDrawable {
         mProps.shadowColor = c
         return this
     }
 
-    fun setShadowRadius(v: Float) : SVGDrawable {
+    open fun setShadowRadius(v: Float) : SVGDrawable {
         if(mProps.shadowRadius != v){
             mProps.shadowRadius = v
             mProps.shadowRadiusStatus = true
         }
         return this
     }
-    fun setShadowOffset(x: Float,y:Float,percentageValue:Boolean = false) : SVGDrawable {
+    open fun setShadowOffset(x: Float,y:Float,percentageValue:Boolean = false) : SVGDrawable {
         if(mProps.shadowOffsetX != x || mProps.shadowOffsetY != y || mProps.shadowOffsetIsPercent != percentageValue ){
             mProps.shadowOffsetX = x
             mProps.shadowOffsetY = y
@@ -146,7 +146,7 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
 
     //MARK: VIEWBOX
 
-    fun setViewBox(x:Float, y:Float, w:Float, h:Float, aspect: SVGViewBox.MeetOrSlice = SVGViewBox.MeetOrSlice.MEET, align: SVGViewBox.Align = SVGViewBox.Align.xMidYMid): SVGDrawable {
+    open fun setViewBox(x:Float, y:Float, w:Float, h:Float, aspect: SVGViewBox.MeetOrSlice = SVGViewBox.MeetOrSlice.MEET, align: SVGViewBox.Align = SVGViewBox.Align.xMidYMid): SVGDrawable {
         if(x != mViewBoxCache.x || y != mViewBoxCache.y || w != mViewBoxCache.width || h != mViewBoxCache.height || aspect != mViewBoxCache.aspect || align != mViewBoxCache.align){
             mViewBoxCache.x = x
             mViewBoxCache.y = y
@@ -163,7 +163,7 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
 
     //MARK: TRANSFORM PROPS
 
-    fun setTranslationX(x: Float,y:Float,percentageValue: Boolean = false) : SVGDrawable {
+    open fun setTranslationX(x: Float,y:Float,percentageValue: Boolean = false) : SVGDrawable {
         if (mTransform.translationX != x || mTransform.translationY != y || mTransform.translationIsPercent != percentageValue){
             mTransform.translationX = x
             mTransform.translationY = y
@@ -173,12 +173,12 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         return this
     }
 
-    fun setRotation(v: Float): SVGDrawable {
+    open fun setRotation(v: Float): SVGDrawable {
         mTransform.rotation = v
         return this
     }
 
-    fun setRotationOrigin(x: Float,y:Float,percentageValue: Boolean = false): SVGDrawable {
+    open fun setRotationOrigin(x: Float,y:Float,percentageValue: Boolean = false): SVGDrawable {
        if (mTransform.rotationOx != x || mTransform.rotationOy != y || mTransform.rotationIsPercent != percentageValue){
            mTransform.rotationOx = x
            mTransform.rotationOy = y
@@ -188,16 +188,16 @@ abstract class SVGDrawable(painterKit: PainterKit = PainterKit()) : Drawable()  
         return this
     }
 
-    fun setScaleX(v: Float): SVGDrawable {
+    open fun setScaleX(v: Float): SVGDrawable {
         mTransform.scaleX = v
         return this
     }
-    fun setScaleY(v: Float): SVGDrawable {
+    open fun setScaleY(v: Float): SVGDrawable {
         mTransform.scaleY = v
         return this
     }
 
-    fun setScaleOrigin(x: Float,y:Float,percentageValue: Boolean = false) : SVGDrawable {
+    open fun setScaleOrigin(x: Float,y:Float,percentageValue: Boolean = false) : SVGDrawable {
        if(mTransform.scaleOriginX != x || mTransform.scaleOriginY != y || mTransform.scaleOriginIsPercent != percentageValue){
            mTransform.scaleOriginX = x
            mTransform.scaleOriginY = y

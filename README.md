@@ -17,7 +17,27 @@ dependencyResolutionManagement {
 	}
 ```
 
-2.-(Optional) 
+2.-libs.versions.toml
+
+```
+svgkit = "1.6"
+
+jjkit-svgkit = { module = "com.github.Only-IceSoul:jjkit-svgkit", version.ref = "svgkit" }
+
+```
+3.-build gradle APP
+
+```
+dependencies {
+
+
+    ///
+    implementation(libs.jjkit.svgkit)
+}
+
+```
+
+4.-(Optional) 
 
 gradle-wrapper.properties  8.6 to 8.7 
 
@@ -27,25 +47,6 @@ distributionPath=wrapper/dists
 distributionUrl=https\://services.gradle.org/distributions/gradle-8.7-bin.zip
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists
-
-```
-3.-libs.versions.toml
-
-```
-svgkit = "1.5"
-
-jjkit-svgkit = { module = "com.github.Only-IceSoul:jjkit-svgkit", version.ref = "svgkit" }
-
-```
-4.-build gradle APP
-
-```
-dependencies {
-
-
-    ///
-    implementation(libs.jjkit.svgkit)
-}
 
 ```
 

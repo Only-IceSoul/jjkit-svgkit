@@ -26,6 +26,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
@@ -209,7 +210,7 @@ fun LoadingCircle(){
 
             //DRAW A BACKGROUND WITH BASE PATH
             svgPath.getStrokePaint().color = colors[1]
-            CanvasDrawer.drawPath(it.nativeCanvas,svgPath.getPath(),svgPath.getStrokePaint())
+            it.nativeCanvas.drawPath(svgPath.getPath(),svgPath.getStrokePaint())
 
             //RESTORE COLOR AND DRAW THE STROKE ANIMATION
             svgPath.getStrokePaint().color = svgCircle.getStrokeColor()
@@ -226,7 +227,6 @@ fun LoadingCircle(){
 
 @Composable
 fun JJCircularProgress(){
-
 
             Column(modifier = Modifier
                 .fillMaxSize()

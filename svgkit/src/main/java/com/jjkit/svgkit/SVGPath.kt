@@ -2,6 +2,7 @@ package com.jjkit.svgkit
 
 import android.graphics.Path
 import com.jjkit.svgkit.utils.SVGPathParser
+import com.jjkit.svgkit.utils.SVGViewBox
 
 class SVGPath: SVGDrawableWithMask() {
 
